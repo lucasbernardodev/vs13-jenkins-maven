@@ -14,16 +14,12 @@ pipeline {
         stage('Navigate to Project folder') {
             steps {
                 script {
-                    // Navegue para a pasta desejada
-                    sh 'cd JENKINS'
+                    // Navegue para o diretório do projeto
+                    dir('JENKINS') {
+                        sh 'mvn clean package' // Comando Maven para limpar e construir o projeto
+                        sh 'java -cp target/classes com.testejenkins.Main' // Comando para executar a classe Main
+                    }
                 }
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                sh 'mvn clean package' // Comando Maven para limpar e construir o projeto
-                sh 'java -cp target/classes com.testejenkins.Main' // Comando para executar a classe Main
             }
         }
         
